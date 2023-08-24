@@ -7,11 +7,13 @@ import java.util.List;
 @ToString
 public class MyStream {
 
-    private final List<?> flowers;
+    private final List<String> flowers;
 
-    public MyStream(final List<?> flowers) {
+    public MyStream(final List<String> flowers) {
         this.flowers = flowers;
     }
 
-
+    public void add(final List<String> flowers) {
+        this.flowers.addAll(flowers);
+    }
 }
