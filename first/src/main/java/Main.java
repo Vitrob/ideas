@@ -1,28 +1,18 @@
-import home.MyStream;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Optional;
+
+import static home.InOut.readFromFile;
+import static home.InOut.writeToFile;
 
 public class Main {
+    private static final String FILE_IN = "in.txt";
+    private static final String FILE_OUT = "out.txt";
+
     public static void main(String[] args) {
-
-        //Shorter version List.of()
-        MyStream myStream = new MyStream(new ArrayList<>(List.of("daisy", "rose", "sunflower")));
-
-        //Longer version Stream.of()
-        myStream.add(Stream.of("lily", "iris", "orchid").collect(Collectors.toList()));
-
-        myStream.modify();
-
-        //Optional<Integer>
-        System.out.println(myStream.multiply(1000));
-        System.out.println(myStream.multiply(0));
-        System.out.println(myStream.multiply(null));
-        //Integer
-        System.out.println(myStream.multiply(1000).orElseGet(myStream::getRandomNumber));
-        System.out.println(myStream.multiply(0).orElseGet(myStream::getRandomNumber));
-        System.out.println(myStream.multiply(null).orElseGet(myStream::getRandomNumber));
+        final Optional<List<String>> linesOptional = readFromFile(FILE_IN);
+        if (linesOptional.isPresent()) {
+            final List<String> lines = linesOptional.get();
+            writeToFile(lines, FILE_OUT);
+        }
     }
 }
